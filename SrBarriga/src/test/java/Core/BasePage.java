@@ -121,8 +121,8 @@ public class BasePage {
 
     /*********** Link ***********/
 
-    public void clicarLink(String id_link){
-        getDriver().findElement(By.linkText(id_link)).click();
+    public void clicarLink(String textoLink){
+        getDriver().findElement(By.linkText(textoLink)).click();
     }
 
     /*********** Textos ***********/
@@ -184,19 +184,25 @@ public class BasePage {
 
      /**************** Tabela ********************/
 
+     public WebElement obterCelula(String colunaBusca, String valor, String colunaBotao, String idTabela){
+        //procurar coluna do registro
+       WebElement tabela = getDriver().findElement(By.xpath("//*[@id='"+idTabela+"']"));
+       int idColuna = obterIndiceColuna(colunaBusca, tabela);
+        
+       //encontrar a linha do registro
+       int idLinha = obterIndiceLinha(valor, tabela, idColuna);
+
+        //procurar a coluna do botao
+        int idColunaBotao = obterIndiceColuna(colunaBotao, tabela);
+
+        //clicar no botao da celula encontrada
+        WebElement celula = tabela.findElement(By.xpath(".//tr["+idLinha+"]/td["+idColunaBotao+"]"));
+        return celula;
+     }
+     
      public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela){
-         //procurar coluna do registro
-        WebElement tabela = getDriver().findElement(By.xpath("//*[@id='elementosForm:tableUsuarios']"));
-        int idColuna = obterIndiceColuna(colunaBusca, tabela);
          
-        //encontrar a linha do registro
-        int idLinha = obterIndiceLinha(valor, tabela, idColuna);
-
-         //procurar a coluna do botao
-         int idColunaBotao = obterIndiceColuna(colunaBotao, tabela);
-
-         //clicar no botao da celula encontrada
-         WebElement celula = tabela.findElement(By.xpath(".//tr["+idLinha+"]/td["+idColunaBotao+"]"));
+         WebElement celula = obterCelula(colunaBusca, valor, colunaBotao, idTabela);
          celula.findElement(By.xpath(".//input")).click();
      }
 
