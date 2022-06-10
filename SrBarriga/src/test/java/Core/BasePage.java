@@ -16,10 +16,12 @@ public class BasePage {
       /*********** TextField e TextArea ***********/
 
       public void escreve(By by, String texto){
+        getDriver().findElement(by).clear();;
         getDriver().findElement(by).sendKeys(texto);
     }
 
     public void escreve(String id_campo, String texto){
+        getDriver().findElement(By.id(id_campo)).clear();;
         getDriver().findElement(By.id(id_campo)).sendKeys(texto);
     }
 
