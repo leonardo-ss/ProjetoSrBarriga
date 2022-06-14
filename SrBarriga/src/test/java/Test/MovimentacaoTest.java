@@ -5,28 +5,31 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import Core.BaseTest;
 import Page.MenuPage;
 import Page.MovimentacaoPage;
 import Utils.DataUtils;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MovimentacaoTest extends BaseTest{
 
     private MenuPage menuPage = new MenuPage();
     private MovimentacaoPage movPage = new MovimentacaoPage();
 
     @Test
-    public void testeTinserirMovimentacao(){
+    public void teste1_inserirMovimentacao(){
         menuPage.acessarTelaCriarMovimentacao();
 
         movPage.setDataMovimentacao(DataUtils.obterDataFormatada(new Date()));
         movPage.setDataPagamento(DataUtils.obterDataFormatada(new Date()));
-        movPage.setDescricao("Movimentação do Texte");
+        movPage.setDescricao("Movimentação do Teste");
         movPage.setInteressado("Conta do Teste");
         movPage.setValor("200");
-        movPage.setConta("Conta do Teste al");
+        movPage.setConta("Conta Suite Alterada");
         movPage.setStatusPago();
         movPage.salvar();
 
@@ -34,7 +37,7 @@ public class MovimentacaoTest extends BaseTest{
     }
 
     @Test
-    public void testCamposObrigatorios(){
+    public void teste2_CamposObrigatorios(){
         menuPage.acessarTelaCriarMovimentacao();
 
         movPage.salvar();
@@ -57,7 +60,7 @@ public class MovimentacaoTest extends BaseTest{
     }
 
     @Test
-    public void testMovimentacaoFutura(){
+    public void teste3_MovimentacaoFutura(){
         menuPage.acessarTelaCriarMovimentacao();
 
         Date dataFutura = DataUtils.obterDataComDiferencaDeDias(5);
@@ -65,10 +68,10 @@ public class MovimentacaoTest extends BaseTest{
         String obterDataFormatada = DataUtils.obterDataFormatada(dataFutura);
         movPage.setDataMovimentacao(obterDataFormatada);
         movPage.setDataPagamento(obterDataFormatada);
-        movPage.setDescricao("Movimentação do Texte");
+        movPage.setDescricao("Movimentação do Teste");
         movPage.setInteressado("Conta do Teste");
         movPage.setValor("5000");
-        movPage.setConta("Conta do Teste al");
+        movPage.setConta("Conta Suite Alterada");
         movPage.setStatusPago();
         movPage.salvar();
 

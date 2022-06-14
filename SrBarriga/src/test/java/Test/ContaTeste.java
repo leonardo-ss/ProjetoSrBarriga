@@ -1,21 +1,24 @@
 package Test;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import Core.BaseTest;
 import Page.ContasPage;
 import Page.MenuPage;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ContaTeste extends BaseTest{
 
     MenuPage menuPage = new MenuPage();
     ContasPage contasPage = new ContasPage();
     
     @Test
-    public void testeInserirConta(){
+    public void teste1_InserirConta(){
         menuPage.acessarTelaInserirConta();
-        contasPage.setNome("Conta do");
+        contasPage.setNome("Conta Suite");
         contasPage.salvar();
         
         Assert.assertEquals("Conta adicionada com sucesso!", contasPage.obterMensagemSucesso());
@@ -23,27 +26,20 @@ public class ContaTeste extends BaseTest{
     }
 
     @Test
-    public void testAlterarConta(){
+    public void teste2_AlterarConta(){
         menuPage.acessarTelaListarConta();
-        contasPage.clicarAlterarConta("Conta do");
-        contasPage.setNome("Conta do Teste al");
+        contasPage.clicarAlterarConta("Conta Suite");
+        contasPage.setNome("Conta Suite Alterada");
         contasPage.salvar();
         Assert.assertEquals("Conta alterada com sucesso!", contasPage.obterMensagemSucesso());
     }
 
     @Test
-    public void testInserirContaMesmoNome(){
+    public void teste3_InserirContaMesmoNome(){
         menuPage.acessarTelaInserirConta();
-        contasPage.setNome("Conta do Teste al");
+        contasPage.setNome("Conta Suite Alterada");
         contasPage.salvar();
         Assert.assertEquals("Já existe uma conta com esse nome!", contasPage.obterMensagemErro());
     }
-
-    @Test
-    public void excluirContaComMovimentacao(){
-        menuPage.acessarTelaListarConta();
-
-        contasPage.clicarExcluirConta("Conta do Teste alterada");
-        Assert.assertEquals("Conta em uso na movimentações", contasPage.obterMensagemErro());
-    }
+   
 }
