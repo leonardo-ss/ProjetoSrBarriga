@@ -1,7 +1,5 @@
 package Page;
 
-import org.openqa.selenium.By;
-
 import Core.BasePage;
 import Core.DriverFactory;
 
@@ -20,7 +18,7 @@ public class LoginPage extends BasePage{
     }
 
     public void entrar(){
-        clicarBotao(By.xpath("//button[.='Entrar']"));
+        clicarBotaoPorTexto("Entrar");
     }
 
     public void logar(String email, String senha){

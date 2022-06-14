@@ -121,6 +121,10 @@ public class BasePage {
         return getDriver().findElement(By.id(id_campo)).getAttribute("value");
     }
 
+    public void clicarBotaoPorTexto(String texto){
+        clicarBotao(By.xpath("//button[.='" +texto+"']"));
+    }
+
     /*********** Link ***********/
 
     public void clicarLink(String textoLink){
